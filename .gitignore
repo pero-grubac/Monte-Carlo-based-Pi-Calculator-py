@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+build/
+dist/
+.eggs/
+pip-wheel-metadata/
+
+# Virtual environments
+.venv/
+venv/
+env/
+.python-version
+
+# Tools
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.tox/
+
+# Jupyter
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+.jupyter/
+
+# The assembled GitHub Pages site
+_site/
+
+# Editors
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*~
+
+# Operating system
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Local files
+.env
+*.local.*

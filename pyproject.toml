@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "montecarlo-pi"
+version = "2.0.0"
+description = "Estimate π by throwing random points at a square, in Python, Jupyter and the browser."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE.txt"]
+authors = [{ name = "Pero Grubač" }]
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.26"]
+
+[project.optional-dependencies]
+notebook = ["matplotlib>=3.8", "jupyterlab>=4"]
+dev = ["pytest>=8", "ruff>=0.6", "matplotlib>=3.8"]
+
+[project.scripts]
+montecarlo-pi = "montecarlo_pi.__main__:main"
+
+[tool.setuptools]
+packages = ["montecarlo_pi"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "NPY"]
+ignore = ["E501"]  # long lines are formatted by hand where they read better

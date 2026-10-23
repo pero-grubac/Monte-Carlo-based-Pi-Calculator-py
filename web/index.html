@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monte Carlo π</title>
+  <meta name="description" content="Estimate π by throwing random points at a square. Real Python and NumPy, running in your browser with Pyodide.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.28.3/full/pyodide.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <img src="favicon.svg" alt="" width="40" height="40">
+      <div>
+        <h1>Monte Carlo π</h1>
+        <p class="caption">Estimate π by throwing random points at a square and counting those that land in the circle</p>
+      </div>
+    </div>
+    <div class="actions">
+      <button id="reset" class="subtle" disabled title="Clear the points and start over">↺ Reset</button>
+      <button id="start" class="accent" disabled>▶ Start</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="card square">
+      <div class="plot">
+        <canvas id="points" width="800" height="800" aria-label="Random points in a square with a circle"></canvas>
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <rect x="0.25" y="0.25" width="99.5" height="99.5" />
+          <circle cx="50" cy="50" r="49.75" />
+        </svg>
+        <div id="loading" class="loading">
+          <div class="spinner"></div>
+          <p id="loading-text">Starting Python…</p>
+          <p class="caption">The first visit downloads Python and NumPy (about 10 MB).</p>
+        </div>
+      </div>
+      <div class="legend">
+        <span><i class="dot inside"></i>inside the circle</span>
+        <span><i class="dot outside"></i>outside</span>
+        <span class="formula">π ≈ 4 × <em>inside</em> / <em>all points</em></span>
+      </div>
+    </section>
+
+    <div class="side">
+      <section class="card">
+        <p class="caption">Estimate</p>
+        <p class="digits big"><span id="correct" class="correct"></span><span id="rest">?.??????</span></p>
+        <p class="digits small">3.141592653589793 <span class="sans">π</span></p>
+        <dl class="metrics">
+          <div><dt>Points</dt><dd id="m-total">0</dd></div>
+          <div><dt>Inside the circle</dt><dd id="m-inside">0</dd></div>
+          <div><dt>Correct decimals</dt><dd id="m-matching">0</dd></div>
+          <div><dt>Error</dt><dd id="m-error">—</dd></div>
+          <div><dt title="π lies within this distance of the estimate in 95% of runs">95% interval</dt><dd id="m-interval">—</dd></div>
+          <div><dt>Speed · <span id="m-elapsed">0.0 s</span></dt><dd id="m-speed">—</dd></div>
+        </dl>
+      </section>
+
+      <section class="card">
+        <fieldset id="settings">
+          <div class="modes" role="radiogroup" aria-label="Mode">
+            <label><input type="radio" name="mode" value="points" checked> Number of points</label>
+            <label><input type="radio" name="mode" value="decimals"> Until decimals match</label>
+          </div>
+
+          <div id="points-mode">
+            <div class="row">
+              <input id="count" type="text" inputmode="numeric" value="1,000,000" aria-label="Number of points" title="For example 1000000, 1e6 or 2.5M">
+              <div class="chips">
+                <button type="button" data-count="10000">10K</button>
+                <button type="button" data-count="1000000">1M</button>
+                <button type="button" data-count="10000000">10M</button>
+                <button type="button" data-count="100000000">100M</button>
+              </div>
+            </div>
+            <p id="count-error" class="error" hidden>Enter a whole number of points, for example 1000000, 1e6 or 2.5M.</p>
+          </div>
+
+          <div id="decimals-mode" hidden>
+            <div class="row stepper">
+              <span>Decimals</span>
+              <button type="button" id="fewer" aria-label="Fewer decimals">−</button>
+              <output id="decimals">3</output>
+              <button type="button" id="more" aria-label="More decimals">+</button>
+            </div>
+            <p class="caption" id="window-text"></p>
+            <p class="caption" id="needed-text"></p>
+          </div>
+
+          <div class="row seed">
+            <span>Seed</span>
+            <input id="seed" type="text" inputmode="numeric" placeholder="blank = random" aria-label="Seed" title="The same seed repeats a run exactly">
+          </div>
+          <p id="seed-error" class="error" hidden>The seed is a whole number, or blank.</p>
+        </fieldset>
+
+        <progress id="progress" max="1" value="0"></progress>
+        <div class="status">
+          <span id="status" class="caption">Loading…</span>
+          <span id="used-seed" class="caption"></span>
+        </div>
+      </section>
+
+      <section class="card chart">
+        <div class="title-row">
+          <h2>Convergence</h2>
+          <span class="caption">shaded: where 95% of runs are</span>
+        </div>
+        <canvas id="chart" aria-label="Error of the estimate against the number of points"></canvas>
+      </section>
+    </div>
+  </main>
+
+  <footer class="caption">
+    Runs entirely in your browser: Python and NumPy via <a href="https://pyodide.org">Pyodide</a>, using the
+    <code>montecarlo_pi</code> package from <a href="https://github.com/pero-grubac/Monte-Carlo-based-Pi-Calculator-py">this repository</a>.
+    MIT © 2025 Pero Grubač
+  </footer>
+</body>
+</html>
