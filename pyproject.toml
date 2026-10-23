@@ -29,6 +29,8 @@ testpaths = ["tests"]
 [tool.ruff]
 line-length = 120
 target-version = "py311"
+# README changes do not run CI, so their code samples are not checked either.
+extend-exclude = ["*.md"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "SIM", "NPY"]

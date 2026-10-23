@@ -150,7 +150,7 @@ print(e.pi, e.error, e.interval95, e.matching_decimals)
 
 simulation = Simulation(seed=19)
 matched, points = simulation.run_until_decimals(4, budget=10**9, capture=1000)
-print(simulation.estimate.total)   # 1477
+print(simulation.estimate.total)  # 1477
 ```
 
 ### On the command line
