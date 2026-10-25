@@ -15,7 +15,7 @@
 
 ### [▶ Try it in the browser](https://pero-grubac.github.io/Monte-Carlo-based-Pi-Calculator-py/)
 
-<img src="readme_assets/demo.gif" alt="The browser version: a million points landing in the square, a search that stops when four decimals match, and a run of 100 million points" width="860">
+<img src="readme_assets/demo.gif" alt="The browser version: a million points landing in the square, a search that stops as soon as four decimals of π match, and a run of 10 million points" width="860">
 
 </div>
 
